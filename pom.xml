@@ -15,7 +15,7 @@
     <packaging>jar</packaging>
 
     <name>rates-api</name>
-    <description>Microservices with Spring Boot and Spring Cloud - Rates Api</description>
+    <description>Allows to query rates peer product and date</description>
 
     <properties>
         <java.version>17</java.version>
@@ -32,9 +32,14 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.swagger</groupId>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+       <dependency>
+            <groupId>io.swagger.core.v3</groupId>
             <artifactId>swagger-annotations</artifactId>
-            <version>1.6.8</version>
+            <version>2.2.8</version>
         </dependency>
         <dependency>
             <groupId>javax.validation</groupId>
@@ -42,9 +47,19 @@
             <version>2.0.1.Final</version>
         </dependency>
         <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+            <version>1.3.2</version>
+        </dependency>
+        <dependency>
             <groupId>org.openapitools</groupId>
             <artifactId>jackson-databind-nullable</artifactId>
-            <version>0.2.1</version>
+            <version>0.2.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+            <version>9.16.0</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -94,45 +109,19 @@
                                 ${project.basedir}/src/main/resources/openapi.yaml
                             </inputSpec>
                             <generatorName>spring</generatorName>
-                            <apiPackage>io.tej.SwaggerCodgen.api</apiPackage>
-                            <modelPackage>io.tej.SwaggerCodgen.model</modelPackage>
-                            <supportingFilesToGenerate>
-                                ApiUtil.java
-                            </supportingFilesToGenerate>
+                            <apiPackage>com.zara.rates.api.application.adapter</apiPackage>
+                            <modelPackage>com.zara.rates.api.application.model</modelPackage>
                             <configOptions>
                                 <sourceFolder>src/main/java/</sourceFolder>
-                                <delegatePattern>true</delegatePattern>
                                 <interfaceOnly>true</interfaceOnly>
+                                <skipDefaultInterface>true</skipDefaultInterface>
                             </configOptions>
-                            <skip>true</skip>
+                            <generateSupportingFiles>false</generateSupportingFiles>
+                            <skip>false</skip>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
         </plugins>
     </build>
-
-    <repositories>
-        <repository>
-            <id>spring-milestones</id>
-            <name>Spring Milestones</name>
-            <url>https://repo.spring.io/milestone</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>spring-milestones</id>
-            <name>Spring Milestones</name>
-            <url>https://repo.spring.io/milestone</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
-
-
 </project>
