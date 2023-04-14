@@ -1,0 +1,70 @@
+openapi: 3.0.1
+info:
+  title: Rates Api
+  description: Allows to handle rates peer brand.
+  version: 1.0.0
+servers:
+  - url: /v1
+paths:
+  /price:
+    get:
+      summary: Get the price for a specific brand, product and date.
+      operationId: getPrice
+      parameters:
+        - name: brand_id
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: product_id
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: application_date
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date-time
+            example: 2023-04-14T10:33:44
+
+      responses:
+        200:
+          description: Price found successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PriceResponse'
+        404:
+          description: Price not found
+
+      x-codegen-request-body-name: price
+
+components:
+  schemas:
+    PriceResponse:
+      type: object
+      properties:
+        brand_id:
+          type: integer
+          format: int64
+          example: 1
+        product_id:
+          type: integer
+          format: int64
+          example: 58457
+        price:
+          type: number
+          format: decimal
+          example: 48.5
+        start_date:
+          type: string
+          format: date-
+          example: 2023-04-14T10:33:44
+        end_date:
+          type: string
+          format: date-time
+          example: 2023-04-14T10:33:44
