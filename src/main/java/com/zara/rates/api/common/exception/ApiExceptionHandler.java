@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 
-import java.util.Date;
+import java.time.OffsetDateTime;
 
 @ControllerAdvice
 public class ApiExceptionHandler {
@@ -16,15 +16,25 @@ public class ApiExceptionHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity resourceNotFoundException(ResourceNotFoundException ex, WebRequest request) {
-        ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
+        ErrorDetails errorDetails = new ErrorDetails(OffsetDateTime.now(), ex.getMessage(),
+                request.getDescription(false));
         loggerException.error(ex);
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler({GeneralException.class})
     public ResponseEntity generalExceptionHandler(GeneralException ex, WebRequest request) {
-        ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
+        ErrorDetails errorDetails = new ErrorDetails(OffsetDateTime.now(), ex.getMessage(),
+                request.getDescription(false));
         loggerException.error(ex);
         return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(ParameterEmptyException.class)
+    public ResponseEntity parameterEmptyException(ParameterEmptyException ex, WebRequest request) {
+        ErrorDetails errorDetails = new ErrorDetails(OffsetDateTime.now(), ex.getMessage(),
+                request.getDescription(false));
+        loggerException.error(ex);
+        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }
 }

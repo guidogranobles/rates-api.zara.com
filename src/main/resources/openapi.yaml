@@ -40,6 +40,22 @@ paths:
                 $ref: '#/components/schemas/PriceResponse'
         404:
           description: Price not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        400:
+          description: Mandatory parameters not present
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
+        default:
+          description: Error desconocido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDetails'
 
       x-codegen-request-body-name: price
 
@@ -62,9 +78,20 @@ components:
           example: 48.5
         start_date:
           type: string
-          format: date-
+          format: date-time
           example: 2023-04-14T10:33:44
         end_date:
           type: string
           format: date-time
           example: 2023-04-14T10:33:44
+
+    ErrorDetails:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+        message:
+          type: string
+        details:
+          type: string
