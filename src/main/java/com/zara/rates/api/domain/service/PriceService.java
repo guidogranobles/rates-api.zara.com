@@ -30,15 +30,15 @@ public class PriceService implements PriceUseCase {
             throws ParameterEmptyException {
 
         if(brandId == null) {
-            throw new ParameterEmptyException(String.format(parameterErrorMessage, "brand_id"));
+            throw new ParameterEmptyException(String.format(parameterErrorMessage, "brandId"));
         }
 
         if(productId == null) {
-            throw new ParameterEmptyException(String.format(parameterErrorMessage, "product_id"));
+            throw new ParameterEmptyException(String.format(parameterErrorMessage, "productId"));
         }
 
         if(applicationDate == null) {
-            throw new ParameterEmptyException(String.format(parameterErrorMessage, "application_date"));
+            throw new ParameterEmptyException(String.format(parameterErrorMessage, "applicationDate"));
         }
 
     }
